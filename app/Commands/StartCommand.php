@@ -31,6 +31,8 @@ class StartCommand extends Command
         $this->info(json_encode($_REQUEST));
         echo PHP_EOL;
         $this->info(json_encode($_ENV));
+
+        return 0;
     }
 
     /**

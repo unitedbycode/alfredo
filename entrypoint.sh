@@ -18,7 +18,8 @@ printenv > foo.txt
 cat foo.txt
 
 echo "[command]ls -alh /source"
-ls -alh /source
+ls -alh /cli
 
 echo "[command]php /cli/alfredo start"
+
 php /cli/alfredo start

@@ -14,7 +14,7 @@ ARG GID=127
 USER ${UID}:${GID}
 
 COPY --chown=${UID}:${GID} entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 COPY . /cli
 
