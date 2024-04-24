@@ -7,6 +7,8 @@ FROM serversideup/php:beta-8.3-cli-bookworm
 #    git \
 #    && rm -rf /var/lib/apt/lists/*
 
+USER root
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
