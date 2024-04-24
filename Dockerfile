@@ -12,6 +12,6 @@ USER root
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
-COPY . /source
+COPY . /cli
 
 ENTRYPOINT ["/entrypoint.sh"]

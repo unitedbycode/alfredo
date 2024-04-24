@@ -20,5 +20,5 @@ cat foo.txt
 echo "[command]ls -alh /source"
 ls -alh /source
 
-echo "[command]ls -alh /source"
-php alfredo
+echo "[command]php /cli/alfredo start"
+php /cli/alfredo start
