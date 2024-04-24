@@ -18,4 +18,6 @@ RUN chmod +x /entrypoint.sh
 
 COPY . /cli
 
+RUN cd /cli ; composer install
+
 ENTRYPOINT ["/entrypoint.sh"]
