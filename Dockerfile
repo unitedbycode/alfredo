@@ -16,7 +16,7 @@ USER ${UID}:${GID}
 COPY --chown=${UID}:${GID} entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-COPY . /cli
+COPY --chown=${UID}:${GID} . /cli
 
 RUN cd /cli ; composer install
 
