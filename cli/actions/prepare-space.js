@@ -14,9 +14,11 @@ import { $ } from "zx"
         await $`mkdir -p $HOME/.ssh`
         await $`echo "${key}" > $HOME/.ssh/id_rsa ; chmod 600 $HOME/.ssh/id_rsa`
         await $`touch $HOME/.ssh/known_hosts ; chmod 600 $HOME/.ssh/known_hosts`
-        await $`ssh-keyscan -p ${port} ${host} >> $HOME/.ssh/known_hosts`
+        // await $`ssh-keyscan -p ${port} ${host} >> $HOME/.ssh/known_hosts`
 
-        res = await $`ssh -i ~/.ssh/id_rsa -p ${port} ${username}@${host} '''
+        const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
+
+        res = await $`ssh ${sshOptions} -i $HOME/.ssh/id_rsa -p ${port} ${username}@${host} '''
         ls -alh
         ls -alh spaces
         pwd
