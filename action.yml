@@ -6,6 +6,9 @@ inputs:
         description: "Who to greet"
         required: true
         default: "World"
+    peca: { description: "Uma peca", required: false }
+    travao: { description: "Uma travao", required: false }
+    volante: { description: "Uma volante", required: false }
 
 outputs:
     time:
