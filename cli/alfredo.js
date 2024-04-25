@@ -1,66 +1,30 @@
-import core from "@actions/core"
-import github from "@actions/github"
-import exec from "@actions/exec"
-import { $ } from "zx"
-import { fileURLToPath } from "url"
-import { dirname } from "path"
+import { Command } from 'commander'
 
-// Function for executing shell commands
-async function execute(cmd) {
-    let output = ""
-    const options = {}
+const program = new Command()
 
-    // Capture output instead of letting it go to stdout.
-    options.listeners = {
-        stdout: (data) => {
-            output += data.toString()
-        }
-    }
+program
+    .name('string-util')
+    .description('CLI to some JavaScript string utilities')
+    .version('0.8.0')
 
-    await exec.exec(cmd, [], options)
-    return output
-}
+program.command('split')
+    .description('Split a string into substrings and display as an array')
+    .argument('<string>', 'string to split')
+    .option('--first', 'display just the first substring')
+    .option('-s, --separator <char>', 'separator character', ',')
+    .action((str, options) => {
+        const limit = options.first ? 1 : undefined
+        console.log(str.split(options.separator, limit))
+    })
 
-// Main action execution flow wrapped in an async IIFE (Immediately Invoked Function Expression)
-(async () => {
-    try {
+program.command('splat')
+    .description('Split a string into substrings and display as an array')
+    .argument('<string>', 'string to split')
+    .option('--first', 'display just the first substring')
+    .option('-s, --separator <char>', 'separator character', ',')
+    .action((str, options) => {
+        const limit = options.first ? 1 : undefined
+        console.log(str.split(options.separator, limit))
+    })
 
-        let res
-
-        res = await $`whoami`
-        console.log(res.toString()) // Outputs `root`
-
-        await execute("pwd")
-        await execute(`ls -alh ${process.env.GITHUB_WORKSPACE}`)
-
-        console.log(process.cwd())
-        console.log(process.env)
-        console.log(process.argv)
-
-        // print where this file is being executed
-        const __filename = fileURLToPath(import.meta.url)
-        const __dirname = dirname(__filename)
-
-        console.log("[command]running this command...")
-        console.log("__filename:", __filename) // Should print the directory containing this script.
-        console.log("__dirname:", __dirname) // Should print the directory containing this script.
-
-        // await execute("ansible --help")
-
-        // Fetch the value from input 'who-to-greet' specified in action.yml file
-        const nameToGreet = core.getInput("who_to_greet")
-        console.log(`Hello ${nameToGreet}!`)
-
-        // Fetch the value from input 'who-to-greet' specified in action.yml file
-        const nameToGreet2 = core.getInput("WHO_TO_GREET")
-        console.log(`Hello2 ${nameToGreet2}!`)
-
-        // Record time when greeting was done as part of outputs
-        const time = new Date().toTimeString()
-        core.setOutput("time", time)
-
-    } catch (error) {
-        // Handle errors properly by setting failure status on error occurrence
-        core.setFailed(error.message)
-    }
-})()
+program.parse()

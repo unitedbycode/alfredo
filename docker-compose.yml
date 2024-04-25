@@ -1,0 +1,11 @@
+## Develop and test locally
+services:
+  alfredo:
+    build:
+      context: .
+      dockerfile: ./base.Dockerfile
+    image: alfredo-local
+    entrypoint: [ "/usr/bin/bash" ]
+    working_dir: /src
+    volumes:
+      - .:/src
