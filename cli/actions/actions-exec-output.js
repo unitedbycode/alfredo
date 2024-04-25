@@ -1,3 +1,5 @@
+import exec from "@actions/exec"
+
 // Function for executing shell commands
 async function execute(cmd) {
     let output = ""

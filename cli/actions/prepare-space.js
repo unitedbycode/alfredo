@@ -1,5 +1,6 @@
 import core from "@actions/core"
 import { $ } from "zx"
+import execute from "./actions-exec-output.js"
 
 // Main action execution flow wrapped in an async IIFE (Immediately Invoked Function Expression)
 (async () => {
@@ -17,6 +18,9 @@ import { $ } from "zx"
         // await $`ssh-keyscan -p ${port} ${host} >> $HOME/.ssh/known_hosts`
 
         const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
+
+        console.log("[command]Starting SSH commands...")
+        await execute(`ssh ${sshOptions} -i $HOME/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh"`)
 
         res = await $`ssh ${sshOptions} -i $HOME/.ssh/id_rsa -p ${port} ${username}@${host} '''
         ls -alh
