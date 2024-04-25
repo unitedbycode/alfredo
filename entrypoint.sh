@@ -5,13 +5,14 @@ mkdir ~/.ssh ; chmod 700 ~/.ssh
 # If $INPUT_KEY is set, write it to a file
 if [ -n "$INPUT_KEY" ]; then
   echo "$INPUT_KEY" > ~/.ssh/id_rsa
-  chmod 0600 ~/.ssh/id_rsa
+  chmod 600 ~/.ssh/id_rsa
 fi
 
 touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
 
 echo "[command]key-scan...."
-ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
+#ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
+ssh-keyscan $INPUT_HOST >> ~/.ssh/known_hosts
 
 echo "[command]cat known_hosts"
 cat ~/.ssh/known_hosts
