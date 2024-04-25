@@ -1,18 +1,19 @@
-name: "Hello World JS Action"
-description: "Greet someone and record the time"
+name: "Alfredo"
+description: "Self-hosting, deployments and automations with GHActions"
 
 inputs:
-    who_to_greet:
-        description: "Who to greet"
+    task:
+        description: "Task to execute"
         required: true
-        default: "World"
-    whotogreet:
-        description: "Who to greet"
-        required: true
-        default: "World2"
-    peca: { description: "Uma peca", required: false }
-    tra-vao: { description: "Uma travao", required: false }
-    volante: { description: "Uma volante", required: false }
+    host:
+      description: "SSH host address."
+    username:
+      description: "SSH username."
+    port:
+      description: "SSH port number."
+      default: "22"
+    key:
+      description: "Content of the SSH private key. For example, the raw content of ~/.ssh/id_rsa."
 
 outputs:
     time:
@@ -23,8 +24,5 @@ runs:
     # Use a final build, when reaching a stable-release
     #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
     image: Dockerfile
-    env:
-      foobarthis: ${{ inputs.who_to_greet }}
-#    args:
-#      - ${{ inputs.who_to_greet }}
-#      - ${{ inputs.peca }}
+    args:
+      - ${{ inputs.task }}
