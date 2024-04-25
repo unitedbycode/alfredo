@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 const program = new Command()
 
-import prepareSpace from './actions/prepare-space'
+import prepareSpace from './actions/prepare-space.js'
 
 program
     .name('string-util')
