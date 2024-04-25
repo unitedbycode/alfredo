@@ -14,13 +14,11 @@
 #pwd
 #
 #echo "[command]printenv"
-printenv > foo.txt
-cat foo.txt
+printenv > env.txt
+cat env.txt
 
 #echo "[command]ls -alh /source"
 #ls -alh /cli
-
-ls -alh $GITHUB_WORKSPACE
 
 ## Start the main command
 ##

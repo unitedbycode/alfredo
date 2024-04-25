@@ -25,21 +25,18 @@ async function execute(cmd) {
 (async () => {
     try {
 
-        const foo = await $`whoami`
-        console.log(foo.toString())
+        let res
 
-        const runner_workspace = process.env.RUNNER_WORKSPACE
-        const github_workspace = process.env.GITHUB_WORKSPACE
+        res = await $`whoami`
+        console.log(res.toString()) // Outputs `root`
 
         await execute("pwd")
+        await execute(`ls ${process.env.GITHUB_WORKSPACE}`)
 
-        await execute(`ls ${runner_workspace}`)
-        await execute(`ls ${github_workspace}`)
+        console.log(process.cwd())
+        console.log(process.env)
 
         // print where this file is being executed
-        console.log(process.env)
-        console.log(process.cwd())
-
         const __filename = fileURLToPath(import.meta.url)
         const __dirname = dirname(__filename)
 
