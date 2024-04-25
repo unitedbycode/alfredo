@@ -1,21 +1,6 @@
 #!/bin/sh
 
 mkdir ~/.ssh ; chmod 700 ~/.ssh
-touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
-echo "[command]cat $INPUT_HOST $INPUT_PORT"
-
-echo "from chars 5-20 chars of $INPUT_HOST"
-echo $INPUT_HOST | cut -c 5-20
-echo "first 1 chars of $INPUT_PORT"
-echo $INPUT_PORT | cut -c 1
-echo "second char of $INPUT_PORT"
-echo $INPUT_PORT | cut -c 2
-
-
-ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
-
-echo "[command]cat known_hosts"
-cat ~/.ssh/known_hosts
 
 # If $INPUT_KEY is set, write it to a file
 if [ -n "$INPUT_KEY" ]; then
@@ -23,9 +8,16 @@ if [ -n "$INPUT_KEY" ]; then
   chmod 0600 ~/.ssh/id_rsa
 fi
 
+touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
+
+echo "[command]key-scan...."
+ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
+
+echo "[command]cat known_hosts"
+cat ~/.ssh/known_hosts
+
 echo "[command]ls ~/.ssh and cat key"
 ls -alh ~/.ssh
-cat ~/.ssh/id_rsa
 
 SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
