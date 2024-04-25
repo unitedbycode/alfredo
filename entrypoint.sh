@@ -20,6 +20,10 @@ cat env.txt
 #echo "[command]ls -alh /source"
 #ls -alh /cli
 
+# echo all arguments
+echo "[command]echo \$@"
+echo $@
+
 ## Start the main command
 ##
 cd /src ; npm start
