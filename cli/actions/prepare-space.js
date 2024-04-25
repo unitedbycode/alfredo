@@ -14,7 +14,7 @@ import { $ } from "zx"
         await $`mkdir -p ~/.ssh`
         await $`echo ${key} > ~/.ssh/id_rsa`
         await $`chmod 600 ~/.ssh/id_rsa`
-        await $`ssh-keyscan -i ~/.ssh/id_rsa -p ${port} ${host} >> ~/.ssh/known_hosts`
+        await $`ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts`
 
         res = await $`ssh -i ~/.ssh/id_rsa -p ${port} ${username}@${host} '''
         ls -alh
