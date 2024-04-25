@@ -59,23 +59,20 @@ bumpVersion()
     .then(nextVersion => {
 
         import("zx").then(async zx => {
-            let res
             const $ = zx.$
-            res = await $`git tag v${nextVersion}`
-            // console.log(res.toString())
-            res = await $`git push`
-            // console.log(res.toString())
-            res = await $`git push --tags`
-            // console.log(res.toString())
 
-            // Pause 2 seconds
+            await $`git tag v${nextVersion}`
+            await $`git push`
+            await $`git push --tags`
+
+            // Pause 2 seconds, so that the tag is processed server-side, before the action is run.
+            console.log("Pausing for 2 seconds...")
             await new Promise(resolve => setTimeout(resolve, 2000))
 
             replaceInFile(actionFile, /(alfredo@v)(\d+\.\d+\.\d+)/g, `alfredo@v${nextVersion}`)
 
             zx.cd(deployDir)
-            res = await $`git add . && git commit -m "wip" && git push origin staging`
-            // console.log(res.toString())
+            await $`git add . && git commit -m "wip" && git push origin staging`
         })
 
     })
