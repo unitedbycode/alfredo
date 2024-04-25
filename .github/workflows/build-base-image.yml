@@ -6,6 +6,7 @@ on:
     paths:
       - 'base.Dockerfile'
       - 'package**.json'
+      - 'entrypoint.sh'
     branches:
       - main
 
