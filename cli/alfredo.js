@@ -26,7 +26,7 @@ async function execute(cmd) {
     try {
 
         const foo = await $`whoami`
-        console.log(foo)
+        console.log(foo.toString())
 
 
         await execute("pwd")
