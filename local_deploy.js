@@ -74,7 +74,7 @@ bumpVersion()
             replaceInFile(actionFile, /(alfredo@v)(\d+\.\d+\.\d+)/g, `alfredo@v${nextVersion}`)
 
             zx.cd(deployDir)
-            res = await $`git add .  git commit -m "wip"  git push origin staging`
+            res = await $`git add . && git commit -m "wip" && git push origin staging`
             console.log(res)
         })
 
