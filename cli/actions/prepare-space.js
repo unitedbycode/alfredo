@@ -12,9 +12,9 @@ import { $ } from "zx"
 
         let res
         await $`mkdir -p ~/.ssh`
-        await $`echo ${key} > ~/.ssh/id_rsa`
-        await $`chmod 600 ~/.ssh/id_rsa`
+        await $`echo ${key} > ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa`
         await $`ssh-keygen -R ${host}`
+        await $`touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts`
         await $`ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts`
 
         res = await $`ssh -i ~/.ssh/id_rsa -p ${port} ${username}@${host} '''
