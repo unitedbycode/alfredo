@@ -13,4 +13,5 @@ outputs:
 
 runs:
     using: docker
-    image: Dockerfile
+    image: unitedbycode/alfredo:sha-c780c4b
+    #image: Dockerfile
