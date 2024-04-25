@@ -20,6 +20,5 @@ cat foo.txt
 echo "[command]ls -alh /source"
 ls -alh /cli
 
-echo "[command]php /cli/alfredo start"
-
-php /cli/alfredo start
+echo "[command]node /cli/index.js"
+node /cli/index.js

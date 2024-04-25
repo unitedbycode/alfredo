@@ -1,6 +1,2 @@
-/vendor
-/.idea
-/.vscode
-/.vagrant
-.phpunit.result.cache
 node_modules
+local_deploy.js
