@@ -1,10 +1,20 @@
 #!/bin/sh
 
-#echo "$VAULT_PASS" > ~/.vault_pass.txt
-#mkdir ~/.ssh
-#ansible-vault --vault-password-file ~/.vault_pass.txt view ansible/ssh_key.txt.secret > ~/.ssh/id_rsa
-#chmod 0600 ~/.ssh/id_rsa
+mkdir ~/.ssh
 
-# ansible-playbook -e "build_sha=$GITHUB_SHA" --vault-password-file ~/.vault_pass.txt -i ansible/hosts ansible/deploy.yml
+# If $INPUT_KEY is set, write it to a file
+if [ -n "$INPUT_KEY" ]; then
+  echo "$INPUT_KEY" > ~/.ssh/id_rsa
+  chmod 0600 ~/.ssh/id_rsa
+fi
+
+ls -alh ~/.ssh
+cat ~/.ssh/id_rsa
+
+touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
+ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts
+
 
 cd /src ; npm run start -- $@
+
+
