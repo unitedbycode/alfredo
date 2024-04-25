@@ -12,10 +12,12 @@ import execute from "./actions-exec-output.js"
         const key = core.getInput('key')
 
         let res
-        await $`mkdir -p ~/.ssh`
-        await $`echo "${key}" > ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa`
-        await $`touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts`
+        await execute(`mkdir -p ~/.ssh`)
+        await execute(`echo "${key}" > ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa`)
+        await execute(`touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts`)
         // await $`ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts`
+
+        process.exit(0)
 
         const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
