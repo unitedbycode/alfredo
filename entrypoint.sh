@@ -1,7 +1,16 @@
 #!/bin/sh
 
-mkdir ~/.ssh
+mkdir ~/.ssh ; chmod 700 ~/.ssh
 #touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
+echo "[command]cat $INPUT_HOST $INPUT_PORT"
+echo "first 3 chars of $INPUT_HOST"
+echo $INPUT_HOST | cut -c 1-3
+echo "first 1 chars of $INPUT_PORT"
+echo $INPUT_PORT | cut -c 1
+echo "second char of $INPUT_PORT"
+echo $INPUT_PORT | cut -c 2
+
+
 ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
 
 echo "[command]cat known_hosts"
