@@ -7,18 +7,20 @@
 
 # ansible-playbook -e "build_sha=$GITHUB_SHA" --vault-password-file ~/.vault_pass.txt -i ansible/hosts ansible/deploy.yml
 
-echo "[command]ls -alh"
-ls -alh
+#echo "[command]ls -alh"
+#ls -alh
+#
+#echo "[command]pwd"
+#pwd
+#
+#echo "[command]printenv"
+#printenv > foo.txt
+#cat foo.txt
+#
+#echo "[command]ls -alh /source"
+#ls -alh /cli
 
-echo "[command]pwd"
-pwd
 
-echo "[command]printenv"
-printenv > foo.txt
-cat foo.txt
-
-echo "[command]ls -alh /source"
-ls -alh /cli
-
-echo "[command]node /cli/alfredo.js"
-node /cli/alfredo.js
+## Start the main command
+##
+cd /src ; npm start

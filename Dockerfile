@@ -1,18 +1,7 @@
-FROM node:20-bookworm
+FROM ghcr.io/unitedbycode/alfredo:sha-c780c4b
 
-#ENV ANSIBLE_HOST_KEY_CHECKING=False
+RUN cd /cli ; rm -rf src
 
-RUN apt-get update && apt-get install -y \
-    ansible \
-    openssh-client \
-    sshpass \
-    git \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh
-
-COPY . /cli
-RUN cd /cli && npm ci
+COPY src /cli/src
 
 ENTRYPOINT ["/entrypoint.sh"]

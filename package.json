@@ -2,8 +2,9 @@
   "name": "github-action-alfredo",
   "version": "1.0.0",
   "description": "",
-  "main": "alfredo.js",
+  "main": "src/alfredo.js",
   "scripts": {
+    "start": "node cli/alfredo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
