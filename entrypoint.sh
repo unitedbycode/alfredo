@@ -26,4 +26,4 @@ echo $@
 
 ## Start the main command
 ##
-cd /src ; npm start
+cd /src ; npm run start -- $@

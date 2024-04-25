@@ -47,11 +47,11 @@ async function execute(cmd) {
         // await execute("ansible --help")
 
         // Fetch the value from input 'who-to-greet' specified in action.yml file
-        const nameToGreet = core.getInput("who-to-greet")
+        const nameToGreet = core.getInput("who_to_greet")
         console.log(`Hello ${nameToGreet}!`)
 
         // Fetch the value from input 'who-to-greet' specified in action.yml file
-        const nameToGreet2 = core.getInput("WHO-TO-GREET")
+        const nameToGreet2 = core.getInput("WHO_TO_GREET")
         console.log(`Hello2 ${nameToGreet2}!`)
 
         // Record time when greeting was done as part of outputs
