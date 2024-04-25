@@ -12,7 +12,7 @@ ls -alh ~/.ssh
 cat ~/.ssh/id_rsa
 
 touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
-ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts
+ssh-keyscan -p $INPUT_PORT $INPUT_HOST >> ~/.ssh/known_hosts
 
 
 cd /src ; npm run start -- $@
