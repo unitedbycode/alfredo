@@ -16,3 +16,5 @@ runs:
     # Use a final build, when reaching a stable-release
     #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
     image: Dockerfile
+    args:
+      - ${{ inputs.who-to-greet }}
