@@ -8,7 +8,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-docker-image.yml
     with:
       context: .
-      dockerfile: /Dockerfile
+      dockerfile: Dockerfile
       username: unitedbycode
       image_name: unitedbycode/alfredo
     secrets:
