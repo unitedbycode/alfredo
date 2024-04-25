@@ -14,9 +14,9 @@
 #pwd
 #
 #echo "[command]printenv"
-#printenv > foo.txt
-#cat foo.txt
-#
+printenv > foo.txt
+cat foo.txt
+
 #echo "[command]ls -alh /source"
 #ls -alh /cli
 
