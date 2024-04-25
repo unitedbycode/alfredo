@@ -1,3 +1,4 @@
+import core from "@actions/core"
 import { $ } from "zx"
 import { fileURLToPath } from "url"
 import { dirname } from "path"
@@ -5,9 +6,8 @@ import { dirname } from "path"
 // Main action execution flow wrapped in an async IIFE (Immediately Invoked Function Expression)
 (async () => {
     try {
-
         // Fetch the value from input 'who-to-greet' specified in action.yml file
-        const nameToGreet2 = core.getInput("WHO_TO_GREET")
+        const nameToGreet2 = core.getInput("who_to_greet")
         console.log(`Hello2 ${nameToGreet2}!`)
 
         // Record time when greeting was done as part of outputs
