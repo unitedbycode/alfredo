@@ -20,5 +20,5 @@ cat foo.txt
 echo "[command]ls -alh /source"
 ls -alh /cli
 
-echo "[command]node /cli/index.js"
-node /cli/index.js
+echo "[command]node /cli/alfredo.js"
+node /cli/alfredo.js
