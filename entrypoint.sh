@@ -20,6 +20,7 @@
 #echo "[command]ls -alh /source"
 #ls -alh /cli
 
+ls -alh $RUNNER_WORKSPACE
 
 ## Start the main command
 ##
