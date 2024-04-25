@@ -25,6 +25,6 @@ runs:
     image: Dockerfile
     env:
       foobarthis: ${{ inputs.who_to_greet }}
-    args:
-      - ${{ inputs.who_to_greet }}
-      - ${{ inputs.peca }}
+#    args:
+#      - ${{ inputs.who_to_greet }}
+#      - ${{ inputs.peca }}
