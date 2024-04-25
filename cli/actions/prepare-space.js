@@ -12,17 +12,17 @@ import execute from "./actions-exec-output.js"
         const key = core.getInput('key')
 
         let res
-        await $`mkdir -p $HOME/.ssh`
-        await $`echo "${key}" > $HOME/.ssh/id_rsa ; chmod 600 $HOME/.ssh/id_rsa`
-        await $`touch $HOME/.ssh/known_hosts ; chmod 600 $HOME/.ssh/known_hosts`
-        // await $`ssh-keyscan -p ${port} ${host} >> $HOME/.ssh/known_hosts`
+        await $`mkdir -p ~/.ssh`
+        await $`echo "${key}" > ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa`
+        await $`touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts`
+        // await $`ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts`
 
         const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
         console.log("[command]Starting SSH commands...")
-        await execute(`ssh ${sshOptions} -i $HOME/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh"`)
+        await execute(`ssh ${sshOptions} -i ~/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh"`)
 
-        res = await $`ssh ${sshOptions} -i $HOME/.ssh/id_rsa -p ${port} ${username}@${host} '''
+        res = await $`ssh ${sshOptions} -i ~/.ssh/id_rsa -p ${port} ${username}@${host} '''
         ls -alh
         ls -alh spaces
         pwd
