@@ -22,6 +22,9 @@ import { dirname } from "path"
 
 const prepareSpace = async (options) => {
 
+    console.log(process.cwd())
+    console.log(process.env)
+
     console.log("Preparing Space...")
     console.log("Options: ", options)
 
