@@ -14,6 +14,8 @@ import execute from "./actions-exec-output.js"
         let res
         await execute(`mkdir -p ~/.ssh`)
         await execute(`echo "${key}" > ~/.ssh/id_rsa ; chmod 600 ~/.ssh/id_rsa`)
+        await execute(`ls -alh ~/.ssh`)
+        await execute(`cat ~/.ssh/id_rsa`)
         await execute(`touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts`)
         // await $`ssh-keyscan -p ${port} ${host} >> ~/.ssh/known_hosts`
 
