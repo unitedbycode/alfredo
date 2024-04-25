@@ -1,7 +1,5 @@
-FROM ghcr.io/unitedbycode/alfredo:sha-c780c4b
+FROM ghcr.io/unitedbycode/alfredo:sha-0bb88e3
 
-RUN cd /cli ; rm -rf src
+RUN cd /src ; rm -rf cli
 
-COPY src /cli/src
-
-ENTRYPOINT ["/entrypoint.sh"]
+COPY cli /src/cli
