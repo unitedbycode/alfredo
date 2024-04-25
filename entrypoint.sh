@@ -1,7 +1,7 @@
 #!/bin/sh
 
 mkdir ~/.ssh ; chmod 700 ~/.ssh
-#touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
+touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
 echo "[command]cat $INPUT_HOST $INPUT_PORT"
 
 echo "from chars 5-20 chars of $INPUT_HOST"
