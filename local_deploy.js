@@ -62,11 +62,11 @@ bumpVersion()
             let res
             const $ = zx.$
             res = await $`git tag v${nextVersion}`
-            console.log(res.toString())
+            // console.log(res.toString())
             res = await $`git push`
-            console.log(res.toString())
+            // console.log(res.toString())
             res = await $`git push --tags`
-            console.log(res.toString())
+            // console.log(res.toString())
 
             // Pause 2 seconds
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -75,7 +75,7 @@ bumpVersion()
 
             zx.cd(deployDir)
             res = await $`git add . && git commit -m "wip" && git push origin staging`
-            console.log(res.toString())
+            // console.log(res.toString())
         })
 
     })
