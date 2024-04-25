@@ -28,9 +28,6 @@ async function execute(cmd) {
         const foo = await $`whoami`
         console.log(foo)
 
-        const dockerps = await $`docker ps -a`
-        console.log(dockerps)
-
 
         await execute("pwd")
         await execute("ls -alh")
@@ -41,7 +38,6 @@ async function execute(cmd) {
 
         const __filename = fileURLToPath(import.meta.url)
         const __dirname = dirname(__filename)
-
 
         console.log("[command]running this command...")
         console.log("__filename:", __filename) // Should print the directory containing this script.
