@@ -3,8 +3,9 @@
 mkdir ~/.ssh ; chmod 700 ~/.ssh
 #touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
 echo "[command]cat $INPUT_HOST $INPUT_PORT"
-echo "first 3 chars of $INPUT_HOST"
-echo $INPUT_HOST | cut -c 1-3
+
+echo "from chars 5-20 chars of $INPUT_HOST"
+echo $INPUT_HOST | cut -c 5-20
 echo "first 1 chars of $INPUT_PORT"
 echo $INPUT_PORT | cut -c 1
 echo "second char of $INPUT_PORT"
