@@ -12,5 +12,3 @@ jobs:
       username: unitedbycode
       image_name: unitedbycode/alfredo
       platforms: linux/amd64
-    secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
