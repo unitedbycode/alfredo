@@ -6,6 +6,14 @@ inputs:
         description: "Who to greet"
         required: true
         default: "World"
+    whotogreet:
+        description: "Who to greet"
+        required: true
+        default: "World2"
+    who_to_greet:
+        description: "Who to greet"
+        required: true
+        default: "World3"
     peca: { description: "Uma peca", required: false }
     travao: { description: "Uma travao", required: false }
     volante: { description: "Uma volante", required: false }
@@ -23,3 +31,4 @@ runs:
       foobarthis: ${{ inputs.who-to-greet }}
     args:
       - ${{ inputs.who-to-greet }}
+      - ${{ inputs.peca }}
