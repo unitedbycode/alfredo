@@ -14,3 +14,10 @@ After that, you can run the following command to start the development environme
 ```
 docker compose run --rm alfredo
 ```
+
+## Maintainers only
+
+Build the base image workflow, manually dispatch from the GH cli.
+```
+gh workflow run build-base-image.yml
+```
