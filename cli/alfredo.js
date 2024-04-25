@@ -35,6 +35,7 @@ async function execute(cmd) {
 
         console.log(process.cwd())
         console.log(process.env)
+        console.log(process.argv)
 
         // print where this file is being executed
         const __filename = fileURLToPath(import.meta.url)
