@@ -2,7 +2,7 @@
 
 mkdir ~/.ssh
 #touch ~/.ssh/known_hosts ; chmod 600 ~/.ssh/known_hosts
-ssh-keyscan -p $INPUT_PORT $INPUT_HOST >> ~/.ssh/known_hosts
+ssh-keyscan -p $INPUT_PORT -H $INPUT_HOST >> ~/.ssh/known_hosts
 
 echo "[command]cat known_hosts"
 cat ~/.ssh/known_hosts
