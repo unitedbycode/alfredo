@@ -26,3 +26,8 @@ runs:
     image: Dockerfile
     args:
       - ${{ inputs.task }}
+    env:
+      INPUT_HOST: ${{ inputs.host }}
+      INPUT_PORT: ${{ inputs.port }}
+      INPUT_USERNAME: ${{ inputs.username }}
+      INPUT_KEY: ${{ inputs.key }}
