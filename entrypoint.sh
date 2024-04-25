@@ -14,15 +14,15 @@
 #pwd
 #
 #echo "[command]printenv"
-printenv > env.txt
-cat env.txt
+#printenv > env.txt
+#cat env.txt
 
 #echo "[command]ls -alh /source"
 #ls -alh /cli
 
 # echo all arguments
-echo "[command]echo \$@"
-echo $@
+#echo "[command]echo \$@"
+#echo $@
 
 ## Start the main command
 ##

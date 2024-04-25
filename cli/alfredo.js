@@ -31,7 +31,7 @@ async function execute(cmd) {
         console.log(res.toString()) // Outputs `root`
 
         await execute("pwd")
-        await execute(`ls ${process.env.GITHUB_WORKSPACE}`)
+        await execute(`ls -alh ${process.env.GITHUB_WORKSPACE}`)
 
         console.log(process.cwd())
         console.log(process.env)
