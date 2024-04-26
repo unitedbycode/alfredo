@@ -21,6 +21,7 @@ import execute from "./actions-exec-output.js"
         fs.mkdirSync(`${os.homedir()}/.ssh`, { recursive: true, mode: 0o700})
         fs.writeFileSync(`${os.homedir()}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
+        console.log(process.env)
         console.log("Host:", host)
         console.log("Port:", port)
         console.log("Username:", username)
@@ -67,11 +68,8 @@ import execute from "./actions-exec-output.js"
 
 const prepareSpace = async (options) => {
 
-    // console.log(process.cwd())
-    // console.log(process.env)
-
     console.log("Preparing Space...")
-    console.log("Options: ", options)
+    console.log("Command options: ", options)
 
 }
 
