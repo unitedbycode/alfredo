@@ -19,8 +19,15 @@ import execute from "./actions-exec-output.js"
             key += '\n'
         }
 
+        // Create .ssh directory and write the key to id_rsa file
         fs.mkdirSync(`${home}/.ssh`, { recursive: true, mode: 0o700})
         fs.writeFileSync(`${home}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
+
+        // Scan the host to add it to a freshly created known_hosts
+        fs.unlinkSync(`${home}/.ssh/known_hosts`)
+        fs.writeFileSync(`${home}/.ssh/known_hosts`, '', { encoding: 'utf-8', mode: 0o644 })
+        await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
+
 
         console.log(`echoing stuffff`)
         console.log(`${home}/.ssh`)
@@ -32,7 +39,6 @@ import execute from "./actions-exec-output.js"
         console.log("Username:", username)
         console.log("Key:", key)
 
-        await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
 
         await execute(`ssh -i ${home}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
 
