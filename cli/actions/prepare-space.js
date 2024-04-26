@@ -27,6 +27,8 @@ import execute from "./actions-exec-output.js"
         console.log("Username:", username)
         console.log("Key:", key)
 
+        await execute(`pwd`)
+        await execute(`whoami`)
         await execute(`ls -alh /root/.ssh`)
         await execute(`cat /root/.ssh/id_rsa`)
 
