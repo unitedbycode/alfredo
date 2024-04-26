@@ -31,10 +31,10 @@ import execute from "./actions-exec-output.js"
         console.log("Username:", username)
         console.log("Key:", key)
 
-        await execute(`pwd`)
-        await execute(`whoami`)
-        await execute(`ls -alh /root/.ssh`)
-        await execute(`cat /root/.ssh/id_rsa`)
+        // await execute(`pwd`)
+        // await execute(`whoami`)
+        // await execute(`ls -alh /root/.ssh`)
+        // await execute(`cat /root/.ssh/id_rsa`)
 
 
         const SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
