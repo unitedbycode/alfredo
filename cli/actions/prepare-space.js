@@ -1,4 +1,5 @@
 import fs from 'fs'
+import os from 'os'
 import { $ } from "zx"
 import core from "@actions/core"
 import execute from "./actions-exec-output.js"
@@ -12,11 +13,11 @@ import execute from "./actions-exec-output.js"
         const username = core.getInput('username')
         const key = core.getInput('key')
 
-        fs.mkdirSync('~/.ssh', { recursive: true, mode: 0o700})
-        fs.writeFileSync('~/.ssh/id_rsa', key, { encoding: 'utf-8', mode: 0o600 })
+        fs.mkdirSync(`${os.homedir()}/.ssh`, { recursive: true, mode: 0o700})
+        fs.writeFileSync(`${os.homedir()}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
         const SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-        await execute(`ssh ${SSH_OPTIONS} -i ~/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
+        await execute(`ssh ${SSH_OPTIONS} -i ${os.homedir()}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
 
         //base64 encoded private key
         // const keyB64String = Buffer.from(key, 'base64').toString('utf-8')
