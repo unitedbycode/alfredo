@@ -1,33 +1,29 @@
 name: "Alfredo"
 description: "Self-hosting, deployments and automations with GHActions"
 
+
 inputs:
-    task:
-        description: "Task to execute"
-        required: true
-    host:
-      description: "SSH host address."
-    username:
-      description: "SSH username."
-    port:
-      description: "SSH port number."
-      default: "22"
-    key:
-      description: "Content of the SSH private key. For example, the raw content of ~/.ssh/id_rsa."
+  task: { description: "Task to execute", required: true }
+  host: { description: "SSH host address." }
+  username: { description: "SSH username." }
+  port: { description: "SSH port number.", default: "22" }
+  key: { description: "Content of the SSH private key. For example, the raw content of ~/.ssh/id_rsa." }
+  space: { description: "The space name. It's the directoy under /home/spaces/" }
+  image: { description: "The name for the Docker image." }
 
 outputs:
-    time:
-        description: "The time we greeted you"
+  time:
+    description: "The time we greeted you"
 
 runs:
-    using: docker
-    # Use a final build, when reaching a stable-release
-    #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
-    image: Dockerfile
-    args:
-      - ${{ inputs.task }}
-    env:
-      INPUT_HOST: ${{ inputs.host }}
-      INPUT_PORT: ${{ inputs.port }}
-      INPUT_USERNAME: ${{ inputs.username }}
-      INPUT_KEY: ${{ inputs.key }}
+  using: docker
+  # Use a final build, when reaching a stable-release
+  #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
+  image: Dockerfile
+  args:
+    - ${{ inputs.task }}
+  env:
+    INPUT_HOST: ${{ inputs.host }}
+    INPUT_PORT: ${{ inputs.port }}
+    INPUT_USERNAME: ${{ inputs.username }}
+    INPUT_KEY: ${{ inputs.key }}
