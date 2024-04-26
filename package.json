@@ -5,7 +5,7 @@
     "main": "src/alfredo.js",
     "scripts": {
         "start": "node cli/alfredo.js",
-        "local-run": "cli/local_run.sh",
+        "local-run": "cli/local_run.sh prepare-space",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "type": "module",
@@ -19,6 +19,7 @@
         "commander": "^12.0.0",
         "dotenv": "^16.4.5",
         "figlet": "^1.7.0",
+        "node-ssh": "^13.2.0",
         "prettier": "^3.2.5",
         "semver": "^7.6.0",
         "simple-git": "^3.24.0",

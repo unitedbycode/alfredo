@@ -20,18 +20,19 @@ if [ -n "$INPUT_KEY_BASE64" ]; then
     export INPUT_KEY=$(echo "$INPUT_KEY_BASE64" | base64 -d)
 fi
 
-echo "Running task: $TASK"
+echo "Running task: $1"
 
 docker run --rm \
     -v $(pwd):/src \
     -v ./entrypoint.sh:/entrypoint.sh \
     --entrypoint="/entrypoint.sh" \
     -w /src \
-    -e "TASK" \
+    -e "INPUT_SPACE" \
+    -e "INPUT_IMAGE" \
     -e "INPUT_HOST" \
     -e "INPUT_PORT" \
     -e "INPUT_USERNAME" \
     -e "INPUT_KEY" \
     -e "INPUT_KEY_BASE64" \
     alfredo-local \
-    "$TASK"
+    "$1"

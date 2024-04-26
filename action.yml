@@ -27,3 +27,5 @@ runs:
     INPUT_PORT: ${{ inputs.port }}
     INPUT_USERNAME: ${{ inputs.username }}
     INPUT_KEY: ${{ inputs.key }}
+    INPUT_SPACE: ${{ inputs.space }}
+    INPUT_IMAGE: ${{ inputs.image }}
