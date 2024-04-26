@@ -2,45 +2,62 @@ import core from '@actions/core'
 import execute from '../utils/actions-exec-output.js'
 import { getSSHCommandString } from '../utils/system-ssh-connection.js'
 import { NodeSSH } from 'node-ssh'
+import figlet from 'figlet'
+import { $, spinner, sleep } from 'zx'
 
 const prepareSpace = async (options) => {
-    console.log('Preparing Space...')
+    await figlet('Alfredo', (err, data) => {
+        if (err) {
+            core.setFailed(err)
+        }
+        console.log(data)
+    })
     console.log('Command options: ', options)
+    console.log('Preparing Space...')
 
     const sshCommand = await getSSHCommandString()
 
+    const folder = 'spaces'
+
     try {
         const ssh = new NodeSSH()
-        console.log('Connecting to server...')
 
-        ssh.connect({
+        console.log('HEREEEEE 11111111')
+
+        await spinner('Connecting to server...', async () => {
+            await sleep(200)
+        })
+        console.log('HEREEEEE 222222222222')
+
+        await ssh.connect({
             host: process.env.INPUT_HOST,
             username: process.env.INPUT_USERNAME,
             privateKey: process.env.INPUT_KEY,
-        }).then(() => {
-            console.log('foooo 22222222')
-
-            ssh.execCommand('ls -alh', {}).then((result) => {
-                console.log('STDOUT:', result.stdout)
-                console.log('STDERR:', result.stderr)
-                process.exit(0)
-            })
         })
 
-        return
-        const folder = 'spaces'
+        console.log('HEREEEEE 333333333333')
 
-        const cmd = `${sshCommand} bash -c '''
+        const cmd = `
         ls -alh
+        sleep 2
         ls -alh ${folder}
+        sleep 3
         pwd
         whoami
-        '''`
+        `
 
-        console.log(cmd)
+        await ssh.execCommand(cmd, {
+            onStdout(chunk) {
+                console.log('STDOUT:\n', chunk.toString('utf8'))
+            },
+            onStderr(chunk) {
+                console.log('STDERR:\n', chunk.toString('utf8'))
+            },
+        })
 
-        await execute(cmd)
+        await execute(`${sshCommand} ${cmd}`)
 
+        process.exit(0)
         // Record time when greeting was done as part of outputs
         const time = new Date().toTimeString()
         core.setOutput('time', time)
