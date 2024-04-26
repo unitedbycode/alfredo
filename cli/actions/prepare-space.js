@@ -23,23 +23,41 @@ import execute from "./actions-exec-output.js"
         fs.mkdirSync(`${home}/.ssh`, { recursive: true, mode: 0o700})
         fs.writeFileSync(`${home}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
+        // It fails here, but it works in regular github workflows, check:
+/*
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare SSH connections for deployment
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_PVT_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 22 ${{ secrets.DEPLOY_SERVER }} >> ~/.ssh/known_hosts
+
+      - name: Set up environment variables for later
+        run: |
+          echo "SHA_SHORT=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
+
+          (...)
+
+      - name: Post deployment script
+        run: |
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_SERVER }} '''
+            cd ~/spaces/${{ env.space }}
+            docker compose exec -u ${{ secrets.DEPLOY_USER }} ${{ env.image }} bash -c "scripts/post-deployment.sh"
+          '''
+
+* */
         // Scan the host to add it to a freshly created known_hosts
-        fs.writeFileSync(`${home}/.ssh/known_hosts`, '', { encoding: 'utf-8', mode: 0o644 })
-        await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
+        // fs.writeFileSync(`${home}/.ssh/known_hosts`, '', { encoding: 'utf-8', mode: 0o644 })
+        // await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
 
 
-        console.log(`echoing stuffff`)
-        console.log(`${home}/.ssh`)
-        console.log(`${home}/.ssh/id_rsa`)
+        // ssh options
+        const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
-        console.log(process.env)
-        console.log("Host:", host)
-        console.log("Port:", port)
-        console.log("Username:", username)
-        console.log("Key:", key)
-
-
-        await execute(`ssh -i ${home}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
+        await execute(`ssh ${sshOptions} -i ${home}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
 
         process.exit(0)
 
@@ -47,7 +65,6 @@ import execute from "./actions-exec-output.js"
 
         let res
 
-        const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
         console.log("[command]Starting SSH commands...")
         await execute(`ssh ${sshOptions} -i ~/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh"`)
