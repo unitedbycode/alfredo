@@ -8,6 +8,7 @@
         "build": "docker compose build",
         "local": "npm run prepare-space",
         "bash": "cli/local_run.sh bash",
+        "install-user": "cli/local_run.sh install-user",
         "prepare-space": "cli/local_run.sh prepare-space",
         "build-base-image-workflow": "gh workflow run build-base-image.yml",
         "test": "echo \"Error: no test specified\" && exit 1"
