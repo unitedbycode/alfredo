@@ -21,6 +21,9 @@ import execute from "./actions-exec-output.js"
         fs.mkdirSync(`${os.homedir()}/.ssh`, { recursive: true, mode: 0o700})
         fs.writeFileSync(`${os.homedir()}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
+        console.log(`${os.homedir()}/.ssh`)
+        console.log(`${os.homedir()}/.ssh/id_rsa`)
+
         console.log(process.env)
         console.log("Host:", host)
         console.log("Port:", port)
