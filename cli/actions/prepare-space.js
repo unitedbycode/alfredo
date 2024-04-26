@@ -11,19 +11,30 @@ import execute from "./actions-exec-output.js"
         const host = core.getInput('host')
         const port = core.getInput('port')
         const username = core.getInput('username')
-        const key = core.getInput('key')
+        let key = core.getInput('key')
+
+        // If it doesn't finish with a new line, append it
+        if (!key.endsWith('\n')) {
+            key += '\n'
+        }
 
         fs.mkdirSync(`${os.homedir()}/.ssh`, { recursive: true, mode: 0o700})
         fs.writeFileSync(`${os.homedir()}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
+        console.log("Host:", host)
+        console.log("Port:", port)
+        console.log("Username:", username)
+        console.log("Key:", key)
+
+        await execute(`ls -alh /root/.ssh`)
+        await execute(`cat /root/.ssh/id_rsa`)
+
+
         const SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         await execute(`ssh ${SSH_OPTIONS} -i ${os.homedir()}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
 
-        //base64 encoded private key
-        // const keyB64String = Buffer.from(key, 'base64').toString('utf-8')
-        // await execute(`echo "${keyB64String}" | base64 > ~/.ssh/id_rsa`)
-
         process.exit(0)
+
 
 
         let res
@@ -56,8 +67,8 @@ import execute from "./actions-exec-output.js"
 
 const prepareSpace = async (options) => {
 
-    console.log(process.cwd())
-    console.log(process.env)
+    // console.log(process.cwd())
+    // console.log(process.env)
 
     console.log("Preparing Space...")
     console.log("Options: ", options)
