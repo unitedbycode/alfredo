@@ -24,7 +24,6 @@ import execute from "./actions-exec-output.js"
         fs.writeFileSync(`${home}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
         // Scan the host to add it to a freshly created known_hosts
-        fs.unlinkSync(`${home}/.ssh/known_hosts`)
         fs.writeFileSync(`${home}/.ssh/known_hosts`, '', { encoding: 'utf-8', mode: 0o644 })
         await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
 
