@@ -1,4 +1,4 @@
-FROM ghcr.io/unitedbycode/alfredo:sha-2a672b7
+FROM ghcr.io/unitedbycode/alfredo:sha-02b71ed
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh

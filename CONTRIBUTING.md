@@ -19,5 +19,5 @@ docker compose run --rm alfredo
 
 Build the base image workflow, manually dispatch from the GH cli.
 ```
-gh workflow run build-base-image.yml
+npm run build-base-image-workflow
 ```

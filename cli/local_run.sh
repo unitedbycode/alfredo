@@ -23,6 +23,7 @@ fi
 echo "Running task: $1"
 
 docker run --rm \
+    -it \
     -v $(pwd):/src \
     -v ./entrypoint.sh:/entrypoint.sh \
     --entrypoint="/entrypoint.sh" \
