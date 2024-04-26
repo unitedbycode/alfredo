@@ -12,18 +12,19 @@ import execute from "./actions-exec-output.js"
         const port = core.getInput('port')
         const username = core.getInput('username')
         let key = core.getInput('key')
+        const home = os.homedir()
 
         // If it doesn't finish with a new line, append it
         if (!key.endsWith('\n')) {
             key += '\n'
         }
 
-        fs.mkdirSync(`${os.homedir()}/.ssh`, { recursive: true, mode: 0o700})
-        fs.writeFileSync(`${os.homedir()}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
+        fs.mkdirSync(`${home}/.ssh`, { recursive: true, mode: 0o700})
+        fs.writeFileSync(`${home}/.ssh/id_rsa`, key, { encoding: 'utf-8', mode: 0o600 })
 
         console.log(`echoing stuffff`)
-        console.log(`${os.homedir()}/.ssh`)
-        console.log(`${os.homedir()}/.ssh/id_rsa`)
+        console.log(`${home}/.ssh`)
+        console.log(`${home}/.ssh/id_rsa`)
 
         console.log(process.env)
         console.log("Host:", host)
@@ -31,10 +32,9 @@ import execute from "./actions-exec-output.js"
         console.log("Username:", username)
         console.log("Key:", key)
 
-        await execute(`ssh-keyscan -p ${port} ${host} >> ${os.homedir()}/.ssh/known_hosts`)
+        await execute(`ssh-keyscan -p ${port} ${host} >> ${home}/.ssh/known_hosts`)
 
-        const SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-        await execute(`ssh ${SSH_OPTIONS} -i ${os.homedir()}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
+        await execute(`ssh -i ${home}/.ssh/id_rsa -p ${port} ${username}@${host} "ls -alh spaces"`)
 
         process.exit(0)
 
