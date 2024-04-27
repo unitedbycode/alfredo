@@ -1,6 +1,6 @@
 import core from '@actions/core'
 import execute from '../utils/actions-exec-output.js'
-import { getSSHCommandString } from '../utils/system-ssh-connection.js'
+import { getSSHCommandString, prepareUserKey } from '../utils/system-ssh-connection.js'
 import { NodeSSH } from 'node-ssh'
 import figlet from 'figlet'
 import { $, cd, spinner, sleep } from 'zx'
@@ -21,20 +21,18 @@ const prepareSpace = async (options) => {
     try {
         let res
 
-        cd('/src/ansible')
+        await prepareUserKey()
 
-        res = await $`pwd ; ls -alh`
-        echo(res)
+        cd('/src/ansible')
 
         res = await $`hosts/get-hosts.mjs`
         echo(res)
 
-        console.log(process.env.HOME)
-
-        const home = os.homedir()
-        console.log(home)
+        res = await $`ansible -m ping all`
+        echo(res)
     } catch (error) {
         core.setFailed(error.message)
+        console.log(error)
     }
 }
 

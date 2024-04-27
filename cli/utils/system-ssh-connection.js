@@ -10,6 +10,10 @@ const home = os.homedir()
 let userKeyIsPrepared = false
 
 const prepareUserKey = async () => {
+    if (userKeyIsPrepared) {
+        return
+    }
+
     let key = core.getInput('key')
 
     // If it doesn't finish with a new line, append it

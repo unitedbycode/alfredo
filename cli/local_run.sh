@@ -28,6 +28,7 @@ docker run --rm \
     -v ./entrypoint.sh:/entrypoint.sh \
     --entrypoint="/entrypoint.sh" \
     -w /src \
+    -e "HOME" \
     -e "INPUT_SPACE" \
     -e "INPUT_IMAGE" \
     -e "INPUT_HOST" \
