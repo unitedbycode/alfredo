@@ -7,12 +7,12 @@ We use Docker in development.
 First, you need to have Docker installed in your machine. 
 Then, you can run the following command to build the base image:
 ```
-docker compose build
+npm run build
 ```
 
 After that, you can run the following command to start the development environment:
 ```
-docker compose run --rm alfredo
+npm run bash
 ```
 
 ## Maintainers only
