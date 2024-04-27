@@ -1,23 +1,11 @@
 import core from '@actions/core'
-import { $, cd, spinner, sleep } from 'zx'
-import figlet from 'figlet'
-import { getSSHCommandString, prepareUserKey } from '../utils/system-ssh-connection.js'
-import { NodeSSH } from 'node-ssh'
+import { startCommandGreetings, echo } from '../utils/common.js'
+import { prepareUserKey } from '../utils/system-ssh-connection.js'
+import { $, cd } from 'zx'
 import os from 'os'
-import execute from '../utils/actions-exec-output.js'
-
-const echo = (out) => console.log(out.toString())
 
 const prepareSpace = async (options) => {
-    await figlet('Alfredo', (err, data) => {
-        if (err) {
-            core.setFailed(err)
-        }
-        console.log(data)
-    })
-
-    console.log('Command options: ', options)
-    console.log('Installing user...')
+    await startCommandGreetings(options)
 
     try {
         let res
