@@ -1,9 +1,7 @@
 import figlet from 'figlet'
 import core from '@actions/core'
 
-const echo = (out) => console.log(out.toString())
-
-const startCommandGreetings = async (options) => {
+const startCommandGreetings = async (message = '') => {
     await figlet('Alfredo', (err, data) => {
         if (err) {
             core.setFailed(err)
@@ -11,8 +9,21 @@ const startCommandGreetings = async (options) => {
         console.log(data)
     })
 
-    console.log('Command options: ', options)
-    console.log('Installing user...')
+    core.info(message)
 }
 
-export { startCommandGreetings, echo }
+const validateInputs = (neededInputs) => {
+    const messages = []
+
+    neededInputs.forEach((input) => {
+        if (!core.getInput(input)) {
+            messages.push(input)
+        }
+    })
+
+    if (messages.length > 0) {
+        throw new Error(`Missing required inputs: ${messages.join(', ')}`)
+    }
+}
+
+export { startCommandGreetings, validateInputs }

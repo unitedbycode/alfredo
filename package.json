@@ -6,10 +6,10 @@
     "scripts": {
         "start": "node cli/alfredo.js",
         "build": "docker compose build",
-        "local": "npm run prepare-space",
         "bash": "cli/local_run.sh bash",
+        "remote-tasks": "cli/local_run.sh remote-tasks",
         "install-user": "cli/local_run.sh install-user",
-        "prepare-space": "cli/local_run.sh prepare-space",
+        "install-nginx-proxy-manager": "cli/local_run.sh install-nginx-proxy-manager",
         "build-base-image-workflow": "gh workflow run build-base-image.yml",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

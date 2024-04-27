@@ -1,7 +1,7 @@
 import core from '@actions/core'
 import exec from '@actions/exec'
 import { startCommandGreetings, validateInputs } from '../utils/common.js'
-import { prepareUserKey, publicKeyPath, privateKeyPath } from '../utils/system-ssh-connection.js'
+import { prepareUserKey, privateKeyPath } from '../utils/system-ssh-connection.js'
 
 const task = async (options) => {
     await startCommandGreetings(options)
@@ -11,11 +11,11 @@ const task = async (options) => {
 
     try {
         // Playbook requirements
-        validateInputs(['password', 'public_key'])
+        validateInputs([])
 
         prepareUserKey()
 
-        const user = 'root'
+        const user = core.getInput('username')
 
         // The trailing comma is necessary for the playbook to work, it must be a list.
         const inventory = `${core.getInput('host')},`
@@ -26,13 +26,11 @@ const task = async (options) => {
                 `-i ${inventory}`,
                 `--user=${user}`,
                 `--private-key=${privateKeyPath}`,
-                '/src/ansible/playbooks/_maintenance/install-user.yml',
-                '-e',
-                `username=${core.getInput('username')}`,
+                '/src/ansible/playbooks/nginx-proxy-manager/nginx-proxy-manager.yml',
                 '-e',
                 `target_hosts=all`,
                 '-e',
-                `public_key_path=${publicKeyPath}`,
+                `target_hosts=all`,
             ],
             { cwd: '/src/ansible' },
         )

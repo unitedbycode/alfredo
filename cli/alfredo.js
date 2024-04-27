@@ -1,18 +1,18 @@
 import { Command } from 'commander'
-import prepareSpace from './actions/prepare-space.js'
+import remoteTasks from './actions/remote-tasks.js'
 import installUser from './actions/install-user.js'
+import installNginxProxyManager from './actions/install-nginx-proxy-manager.js'
 const program = new Command()
 
 program.name('string-util').description('CLI to some JavaScript string utilities').version('0.8.0')
 
-program
-    .command('prepare-space')
-    .description('Prepares a Space on the target system')
-    .action((options) => prepareSpace(options))
+program.command('remote-tasks').description('Run some tasks on a remote server - research').action(remoteTasks)
+
+program.command('install-user').description('Installs a user on the target system').action(installUser)
 
 program
-    .command('install-user')
+    .command('install-nginx-proxy-manager')
     .description('Installs a user on the target system')
-    .action((options) => installUser(options))
+    .action(installNginxProxyManager)
 
 program.parse()

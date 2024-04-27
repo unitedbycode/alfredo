@@ -1,7 +1,6 @@
 - name: Deploy space - Nginx Proxy Manager
   hosts: "{{ target_hosts }}"
   vars:
-    username: "alfredo"
     space_name: "nginx-proxy-manager"
 
   tasks:
