@@ -1,10 +1,10 @@
 import core from '@actions/core'
-import execute from '../utils/actions-exec-output.js'
+import { $, cd, spinner, sleep } from 'zx'
+import figlet from 'figlet'
 import { getSSHCommandString, prepareUserKey } from '../utils/system-ssh-connection.js'
 import { NodeSSH } from 'node-ssh'
-import figlet from 'figlet'
-import { $, cd, spinner, sleep } from 'zx'
 import os from 'os'
+import execute from '../utils/actions-exec-output.js'
 
 const echo = (out) => console.log(out.toString())
 
@@ -15,6 +15,7 @@ const prepareSpace = async (options) => {
         }
         console.log(data)
     })
+
     console.log('Command options: ', options)
     console.log('Installing user...')
 

@@ -22,20 +22,15 @@ const prepareSpace = async (options) => {
     try {
         const ssh = new NodeSSH()
 
-        console.log('HEREEEEE 11111111')
-
         await spinner('Connecting to server...', async () => {
             await sleep(200)
         })
-        console.log('HEREEEEE 222222222222')
 
         await ssh.connect({
             host: process.env.INPUT_HOST,
             username: process.env.INPUT_USERNAME,
             privateKey: process.env.INPUT_KEY,
         })
-
-        console.log('HEREEEEE 333333333333')
 
         const cmd = `
         ls -alh
