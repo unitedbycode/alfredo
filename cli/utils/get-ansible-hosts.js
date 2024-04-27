@@ -2,18 +2,13 @@ import os from 'os'
 
 const groupName = 'default'
 
-const tasksAsRoot = ['install-user']
-
 const getHosts = () => {
     const home = os.homedir()
-
-    const ansible_user = tasksAsRoot.includes(process.argv[2]) ? 'root' : process.env.INPUT_USERNAME
 
     const hosts_object = {
         [groupName]: {
             hosts: [process.env.INPUT_HOST],
             vars: {
-                ansible_user,
                 ansible_ssh_private_key_file: `${home}/.ssh/private_key`,
             },
         },

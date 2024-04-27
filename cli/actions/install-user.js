@@ -31,7 +31,7 @@ const prepareSpace = async (options) => {
         prepareUserKey()
 
         await exec.exec(
-            `ansible-playbook /src/ansible/playbooks/_maintenance/create-user.yml`,
+            `ansible-playbook --user=root /src/ansible/playbooks/_maintenance/create-user.yml`,
             [`-e target_hosts=${groupName}`, `-e public_key_path=${publicKeyPath}`],
             { cwd: '/src/ansible' },
         )
