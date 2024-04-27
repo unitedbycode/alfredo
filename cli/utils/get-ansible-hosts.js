@@ -2,10 +2,12 @@ import os from 'os'
 
 const groupName = 'default'
 
-const getHosts = ({ useRoot = true }) => {
+const tasksAsRoot = ['install-user']
+
+const getHosts = () => {
     const home = os.homedir()
 
-    const ansible_user = useRoot ? 'root' : process.env.INPUT_USERNAME
+    const ansible_user = tasksAsRoot.includes(process.argv[2]) ? 'root' : process.env.INPUT_USERNAME
 
     const hosts_object = {
         [groupName]: {
