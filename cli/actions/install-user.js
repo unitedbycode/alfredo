@@ -1,8 +1,7 @@
 import core from '@actions/core'
 import exec from '@actions/exec'
 import { startCommandGreetings, echo } from '../utils/common.js'
-import { prepareUserKey, publicKeyPath } from '../utils/system-ssh-connection.js'
-import { groupName } from '../utils/get-ansible-hosts.js'
+import { prepareUserKey, publicKeyPath, privateKeyPath } from '../utils/system-ssh-connection.js'
 
 const validateInputs = (neededInputs) => {
     const messages = []
@@ -30,9 +29,21 @@ const prepareSpace = async (options) => {
 
         prepareUserKey()
 
+        // The trailing comma is necessary for the playbook to work, it must be a list
+        const inventory = `${core.getInput('host')},`
+
         await exec.exec(
-            `ansible-playbook --user=root /src/ansible/playbooks/_maintenance/create-user.yml`,
-            [`-e target_hosts=${groupName}`, `-e public_key_path=${publicKeyPath}`],
+            'ansible-playbook',
+            [
+                `-i ${inventory}`,
+                '--user=root',
+                `--private-key=${privateKeyPath}`,
+                '/src/ansible/playbooks/_maintenance/create-user.yml',
+                '-e',
+                `target_hosts=all`,
+                '-e',
+                `public_key_path=${publicKeyPath}`,
+            ],
             { cwd: '/src/ansible' },
         )
     } catch (error) {
