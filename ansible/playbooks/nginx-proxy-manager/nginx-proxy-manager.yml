@@ -1,0 +1,42 @@
+- name: Deploy space - Nginx Proxy Manager
+  hosts: "{{ target_hosts }}"
+  vars:
+    username: "alfredo"
+    space_name: "nginx-proxy-manager"
+
+  tasks:
+    - name: Ensure space exists
+      file:
+        path: /home/{{ username }}/spaces/{{ space_name }}
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0755'
+
+    - name: Execute the shell command in a specific directory and register result
+      ansible.builtin.shell:
+        cmd: (docker network ls | grep web) || docker network create web
+        chdir: /home/{{ username }}/spaces/{{ space_name }}
+      register: result
+
+    - name: Show results
+      ansible.builtin.debug:
+          var: result
+
+    - name: Deploy compose file
+      copy:
+        src: files/docker-compose.yml
+        dest: /home/{{ username }}/spaces/{{ space_name }}/docker-compose.yml
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0644'
+
+    - name: Run docker-compose up
+      command: docker compose up -d
+      args:
+        chdir: /home/{{ username }}/spaces/{{ space_name }}
+      register: output
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output

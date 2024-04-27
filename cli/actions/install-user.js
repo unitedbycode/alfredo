@@ -4,10 +4,30 @@ import { startCommandGreetings, echo } from '../utils/common.js'
 import { prepareUserKey, publicKeyPath } from '../utils/system-ssh-connection.js'
 import { groupName } from '../utils/get-ansible-hosts.js'
 
+const validateInputs = (neededInputs) => {
+    const messages = []
+
+    neededInputs.forEach((input) => {
+        if (!core.getInput(input)) {
+            messages.push(input)
+        }
+    })
+
+    if (messages.length > 0) {
+        throw new Error(`Missing required inputs: ${messages.join(', ')}`)
+    }
+}
+
 const prepareSpace = async (options) => {
     await startCommandGreetings(options)
 
     try {
+        // System minimum requirements
+        validateInputs(['host', 'port', 'username', 'key'])
+
+        // Playbook requirements
+        validateInputs(['password', 'public_key'])
+
         prepareUserKey()
 
         await exec.exec(

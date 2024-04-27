@@ -4,11 +4,11 @@ description: "Self-hosting, deployments and automations with GHActions"
 
 inputs:
   task: { description: "Task to execute", required: true }
-  host: { description: "SSH host address." }
-  username: { description: "SSH username." }
-  password: { description: "User password." }
+  host: { description: "SSH host address.", required: true }
+  key: { description: "Contents of the SSH private key.", required: true }
+  username: { description: "SSH username.", required: true }
   port: { description: "SSH port number.", default: "22" }
-  key: { description: "Contents of the SSH private key." }
+  password: { description: "User password." }
   public_key: { description: "Contents of the SSH public key." }
   space: { description: "The space name. It's the directoy under /home/spaces/" }
   image: { description: "The name for the Docker image." }
