@@ -9,6 +9,9 @@ const home = os.homedir()
 
 let userKeyIsPrepared = false
 
+const privateKeyPath = `${home}/.ssh/private_key`
+const publicKeyPath = `${home}/.ssh/public_key`
+
 const preparePrivateKey = () => {
     let key = core.getInput('key')
 
@@ -17,7 +20,7 @@ const preparePrivateKey = () => {
         key += '\n'
     }
 
-    fs.writeFileSync(`${home}/.ssh/private_key`, key, {
+    fs.writeFileSync(`${privateKeyPath}`, key, {
         encoding: 'utf-8',
         mode: 0o600,
     })
@@ -60,7 +63,7 @@ const getSSHCommandString = () => {
     // SSH options for no needing keyscan
     const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
-    return `ssh ${sshOptions} -i ${home}/.ssh/private_key -p ${port} ${username}@${host}`
+    return `ssh ${sshOptions} -i ${privateKeyPath} -p ${port} ${username}@${host}`
 }
 
-export { prepareUserKey, getSSHCommandString }
+export { prepareUserKey, getSSHCommandString, privateKeyPath, publicKeyPath }

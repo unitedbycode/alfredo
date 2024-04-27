@@ -1,12 +1,14 @@
 import os from 'os'
 
+const groupName = 'default'
+
 const getHosts = ({ useRoot = true }) => {
     const home = os.homedir()
 
     const ansible_user = useRoot ? 'root' : process.env.INPUT_USERNAME
 
     const hosts_object = {
-        default: {
+        [groupName]: {
             hosts: [process.env.INPUT_HOST],
             vars: {
                 ansible_user,
@@ -26,4 +28,5 @@ const getHosts = ({ useRoot = true }) => {
     console.log(JSON.stringify(hosts_object))
 }
 
+export { groupName, getHosts }
 export default getHosts
