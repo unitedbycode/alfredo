@@ -14,7 +14,7 @@ const hosts_object = {
     ],
     _meta: {
         hostvars: {
-            [process.env.HOST]: {},
+            [process.env.INPUT_HOST]: {},
         },
     },
 }
