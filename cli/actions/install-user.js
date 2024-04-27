@@ -6,6 +6,8 @@ import figlet from 'figlet'
 import { $, cd, spinner, sleep } from 'zx'
 import os from 'os'
 
+const echo = (out) => console.log(out.toString())
+
 const prepareSpace = async (options) => {
     await figlet('Alfredo', (err, data) => {
         if (err) {
@@ -17,15 +19,18 @@ const prepareSpace = async (options) => {
     console.log('Installing user...')
 
     try {
-        cd('/src/ansible')
         let res
-        res = await $`pwd ; ls -alh`
-        console.log(res.toString())
 
-        res = await $`hosts/get-hosts.sh`
-        console.log(res.toString())
+        cd('/src/ansible')
+
+        res = await $`pwd ; ls -alh`
+        echo(res)
+
+        res = await $`hosts/get-hosts.mjs`
+        echo(res)
 
         console.log(process.env.HOME)
+
         const home = os.homedir()
         console.log(home)
     } catch (error) {
