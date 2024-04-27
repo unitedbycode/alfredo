@@ -1,21 +1,21 @@
 import core from '@actions/core'
 import exec from '@actions/exec'
 import { startCommandGreetings, validateInputs } from '../utils/common.js'
-import { prepareUserKey, publicKeyPath, privateKeyPath } from '../utils/system-ssh-connection.js'
+import { prepareUserKey, privateKeyPath } from '../utils/system-ssh-connection.js'
 
 const task = async () => {
-    await startCommandGreetings('Installing user...')
+    await startCommandGreetings('Installing Docker Compose App...')
 
     // System minimum requirements
     validateInputs(['host', 'port', 'username', 'key'])
 
     try {
         // Playbook requirements
-        validateInputs(['password', 'public_key'])
+        validateInputs([])
 
         prepareUserKey()
 
-        const user = 'root'
+        const user = core.getInput('username')
 
         // The trailing comma is necessary for the playbook to work, it must be a list.
         const inventory = `${core.getInput('host')},`
@@ -26,13 +26,11 @@ const task = async () => {
                 `-i ${inventory}`,
                 `--user=${user}`,
                 `--private-key=${privateKeyPath}`,
-                '/src/ansible/playbooks/_maintenance/install-user.yml',
+                '/src/ansible/playbooks/install-compose-app/install-compose-app.yml',
                 '-e',
                 `username=${core.getInput('username')}`,
                 '-e',
                 `target_hosts=all`,
-                '-e',
-                `public_key_path=${publicKeyPath}`,
             ],
             { cwd: '/src/ansible' },
         )

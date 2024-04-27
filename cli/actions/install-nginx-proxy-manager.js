@@ -3,8 +3,8 @@ import exec from '@actions/exec'
 import { startCommandGreetings, validateInputs } from '../utils/common.js'
 import { prepareUserKey, privateKeyPath } from '../utils/system-ssh-connection.js'
 
-const task = async (options) => {
-    await startCommandGreetings(options)
+const task = async () => {
+    await startCommandGreetings('Installing nginx-proxy-manager...')
 
     // System minimum requirements
     validateInputs(['host', 'port', 'username', 'key'])
