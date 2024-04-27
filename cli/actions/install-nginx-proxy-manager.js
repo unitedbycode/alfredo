@@ -28,7 +28,7 @@ const task = async (options) => {
                 `--private-key=${privateKeyPath}`,
                 '/src/ansible/playbooks/nginx-proxy-manager/nginx-proxy-manager.yml',
                 '-e',
-                `target_hosts=all`,
+                `username=${core.getInput('username')}`,
                 '-e',
                 `target_hosts=all`,
             ],

@@ -70,7 +70,7 @@ bumpVersion()
             replaceInFile(actionFile, /(alfredo@v)(\d+\.\d+\.\d+)/g, `alfredo@v${nextVersion}`)
 
             zx.cd(deployDir)
-            await $`git add . && git commit -m "wip" && git push origin tinker`
+            await $`git add . && git commit -m "wip" && git push`
         })
     })
     .catch(console.error.bind(console))
