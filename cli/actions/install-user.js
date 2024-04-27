@@ -22,9 +22,12 @@ const prepareSpace = async (options) => {
     try {
         let res
 
-        await prepareUserKey()
+        prepareUserKey()
 
         cd('/src/ansible')
+
+        res = await $`ls -alh ${os.homedir()}/.ssh`
+        echo(res)
 
         res = await $`hosts/get-hosts.mjs`
         echo(res)

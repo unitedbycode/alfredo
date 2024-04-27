@@ -12,8 +12,8 @@ export default async function keyscan(host, port) {
           - name: Prepare SSH connections for deployment
             run: |
               mkdir -p ~/.ssh
-              echo "${{ secrets.DEPLOY_PVT_KEY }}" > ~/.ssh/id_rsa
-              chmod 600 ~/.ssh/id_rsa
+              echo "${{ secrets.DEPLOY_PVT_KEY }}" > ~/.ssh/private_key
+              chmod 600 ~/.ssh/private_key
               ssh-keyscan -p 22 ${{ secrets.DEPLOY_SERVER }} >> ~/.ssh/known_hosts
 
           - name: Set up environment variables for later

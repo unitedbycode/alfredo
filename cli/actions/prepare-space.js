@@ -4,6 +4,7 @@ import { getSSHCommandString } from '../utils/system-ssh-connection.js'
 import { NodeSSH } from 'node-ssh'
 import figlet from 'figlet'
 import { $, spinner, sleep } from 'zx'
+import os from 'os'
 
 const prepareSpace = async (options) => {
     await figlet('Alfredo', (err, data) => {
@@ -15,7 +16,7 @@ const prepareSpace = async (options) => {
     console.log('Command options: ', options)
     console.log('Preparing Space...')
 
-    const sshCommand = await getSSHCommandString()
+    const sshCommand = getSSHCommandString()
 
     const folder = 'spaces'
 

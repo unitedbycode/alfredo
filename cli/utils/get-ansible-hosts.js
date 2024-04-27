@@ -10,7 +10,7 @@ const getHosts = ({ useRoot = true }) => {
             hosts: [process.env.INPUT_HOST],
             vars: {
                 ansible_user,
-                ansible_ssh_private_key_file: `${home}/.ssh/id_rsa`,
+                ansible_ssh_private_key_file: `${home}/.ssh/private_key`,
             },
         },
         _meta: {

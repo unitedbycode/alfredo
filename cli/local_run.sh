@@ -34,7 +34,10 @@ docker run --rm \
     -e "INPUT_HOST" \
     -e "INPUT_PORT" \
     -e "INPUT_USERNAME" \
+    -e "INPUT_PASSWORD" \
     -e "INPUT_KEY" \
     -e "INPUT_KEY_BASE64" \
+    -e "INPUT_PUBLIC_KEY" \
+    -e "INPUT_PUBLIC_KEY_BASE64" \
     alfredo-local \
     "$1"

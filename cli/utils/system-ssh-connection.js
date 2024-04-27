@@ -9,11 +9,7 @@ const home = os.homedir()
 
 let userKeyIsPrepared = false
 
-const prepareUserKey = async () => {
-    if (userKeyIsPrepared) {
-        return
-    }
-
+const preparePrivateKey = () => {
     let key = core.getInput('key')
 
     // If it doesn't finish with a new line, append it
@@ -21,26 +17,50 @@ const prepareUserKey = async () => {
         key += '\n'
     }
 
-    // Create .ssh directory and write the key to id_rsa file
-    fs.mkdirSync(`${home}/.ssh`, { recursive: true, mode: 0o700 })
-
-    fs.writeFileSync(`${home}/.ssh/id_rsa`, key, {
+    fs.writeFileSync(`${home}/.ssh/private_key`, key, {
         encoding: 'utf-8',
         mode: 0o600,
     })
+}
+
+const preparePublicKey = () => {
+    let public_key = core.getInput('public_key')
+
+    // If it doesn't finish with a new line, append it
+    if (!public_key.endsWith('\n')) {
+        public_key += '\n'
+    }
+
+    fs.writeFileSync(`${home}/.ssh/public_key`, public_key, {
+        encoding: 'utf-8',
+        mode: 0o644,
+    })
+}
+
+const prepareUserKey = () => {
+    if (userKeyIsPrepared) {
+        return
+    }
+
+    // Create .ssh directory and write the key to id_rsa file
+    fs.mkdirSync(`${home}/.ssh`, { recursive: true, mode: 0o700 })
+
+    preparePrivateKey()
+
+    preparePublicKey()
 
     userKeyIsPrepared = true
 }
 
-const getSSHCommandString = async () => {
+const getSSHCommandString = () => {
     if (!userKeyIsPrepared) {
-        await prepareUserKey()
+        prepareUserKey()
     }
 
     // SSH options for no needing keyscan
     const sshOptions = `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
 
-    return `ssh ${sshOptions} -i ${home}/.ssh/id_rsa -p ${port} ${username}@${host}`
+    return `ssh ${sshOptions} -i ${home}/.ssh/private_key -p ${port} ${username}@${host}`
 }
 
 export { prepareUserKey, getSSHCommandString }

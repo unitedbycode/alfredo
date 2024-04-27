@@ -1,0 +1,54 @@
+- name: Create regular user, sudoer, and {docker,www-data} groups member
+  hosts: "{{ target_hosts }}"
+  gather_facts: yes
+  become: yes
+
+  vars_prompt:
+    - name: "username"
+      prompt: "Desired username"
+      private: no
+    - name: "public_key_path"
+      prompt: "Public key path"
+      private: no
+    - name: "password"
+      prompt: "Desired password"
+      private: yes
+      confirm: yes
+      encrypt: "sha512_crypt"
+      salt_size: 7
+
+  tasks:
+    - name: Ensure username exists
+      ansible.builtin.user:
+        name: "{{ username }}"
+        shell: /bin/bash
+        password: "{{ password }}"
+
+    - name: Set authorized key taken from file
+      ansible.builtin.authorized_key:
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('file', public_key_path) }}"
+
+    - name: Ensure "username" is in sudoers
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        line: '{{ username }} ALL=(ALL:ALL) ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Ensure group "docker" exists
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add "username" user to "docker" group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: docker
+        append: yes
+
+    - name: Add "username" user to "www-data" group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: www-data
+        append: yes
