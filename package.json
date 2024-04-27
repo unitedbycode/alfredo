@@ -7,10 +7,11 @@
         "start": "node cli/alfredo.js",
         "build": "docker compose build",
         "bash": "cli/local_run.sh bash",
+        "build-base-image-workflow": "gh workflow run build-base-image.yml",
         "remote-tasks": "cli/local_run.sh remote-tasks",
         "install-user": "cli/local_run.sh install-user",
         "install-nginx-proxy-manager": "cli/local_run.sh install-nginx-proxy-manager",
-        "build-base-image-workflow": "gh workflow run build-base-image.yml",
+        "install-compose-app": "cli/local_run.sh install-compose-app",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "type": "module",
