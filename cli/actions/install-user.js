@@ -3,44 +3,20 @@ import exec from '@actions/exec'
 import { startCommandGreetings, echo } from '../utils/common.js'
 import { prepareUserKey, publicKeyPath } from '../utils/system-ssh-connection.js'
 import { groupName } from '../utils/get-ansible-hosts.js'
-import { $, cd } from 'zx'
-import execute from '../utils/actions-exec-output.js'
 
 const prepareSpace = async (options) => {
     await startCommandGreetings(options)
 
     try {
-        let res
-
         prepareUserKey()
-
-        // res = await exec.exec('/src/ansible/hosts/get-hosts.mjs')
-        // echo(res)
-        // process.exit(0)
-
-        // cd('/src/ansible')
-        // res = await $`
-        // ansible-playbook /src/ansible/playbooks/_maintenance/create-user.yml \
-        // -e "target_hosts=${groupName}" -e "public_key_path=${publicKeyPath}"
-        // `
-        // for await (const chunk of res.stdout) {
-        //     echo(chunk)
-        // }
-        // echo(res)
-
-        console.log([`-e`, `"target_hosts=${groupName}"`, `-e`, `"public_key_path=${publicKeyPath}"`])
 
         await exec.exec(
             `ansible-playbook /src/ansible/playbooks/_maintenance/create-user.yml`,
-            [`-e`, `target_hosts=${groupName}`, `-e`, `public_key_path=${publicKeyPath}`],
+            [`-e target_hosts=${groupName}`, `-e public_key_path=${publicKeyPath}`],
             { cwd: '/src/ansible' },
         )
-
-        // res = await exec.exec('ansible -m ping alladas')
-        // console.log(res)
     } catch (error) {
-        core.setFailed(error.message)
-        console.log(error)
+        process.env.CI ? core.setFailed(error.message) : console.log(error)
     }
 }
 
