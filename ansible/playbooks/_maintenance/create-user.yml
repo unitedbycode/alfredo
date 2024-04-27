@@ -5,12 +5,14 @@
 
   vars_prompt:
     - name: "username"
+      default: "{{ lookup('env', 'INPUT_USERNAME') }}"
       prompt: "Desired username"
       private: no
     - name: "public_key_path"
       prompt: "Public key path"
       private: no
     - name: "password"
+      default: "{{ lookup('env', 'INPUT_PASSWORD') }}"
       prompt: "Desired password"
       private: yes
       confirm: yes

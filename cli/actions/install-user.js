@@ -19,18 +19,22 @@ const prepareSpace = async (options) => {
         // process.exit(0)
 
         // cd('/src/ansible')
+        // res = await $`
+        // ansible-playbook /src/ansible/playbooks/_maintenance/create-user.yml \
+        // -e "target_hosts=${groupName}" -e "public_key_path=${publicKeyPath}"
+        // `
+        // for await (const chunk of res.stdout) {
+        //     echo(chunk)
+        // }
+        // echo(res)
 
-        // [`-e "target_hosts=${groupName}"`, `-e "public_key_path=${publicKeyPath}"`],
-        // console.log(`-e="target_hosts=${groupName}"`, `-e="public_key_path=${publicKeyPath}"`)
+        console.log([`-e`, `"target_hosts=${groupName}"`, `-e`, `"public_key_path=${publicKeyPath}"`])
 
-        res = await exec.exec(
+        await exec.exec(
             `ansible-playbook /src/ansible/playbooks/_maintenance/create-user.yml`,
-            [`-e "target_hosts=${groupName}"`, `-e "public_key_path=${publicKeyPath}"`],
-
+            [`-e`, `target_hosts=${groupName}`, `-e`, `public_key_path=${publicKeyPath}`],
             { cwd: '/src/ansible' },
         )
-
-        echo(res)
 
         // res = await exec.exec('ansible -m ping alladas')
         // console.log(res)
