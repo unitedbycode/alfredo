@@ -17,12 +17,17 @@ const task = async () => {
         prepareUserKey()
 
         let out
+
         out = await $`
         pwd ; ls -alh
         echo "------------------"
         echo "------------------"
         cd /github/workspace
         docker run --rm -v $PWD:/app -w /app composer bash -c "pwd ; whoami; ls -alh"
+        `
+        core.info(out)
+
+        out = await $`
         docker run --rm -v $PWD:/app -w /app composer bash -c "composer install --ignore-platform-reqs --no-scripts"
         `
         core.info(out)
