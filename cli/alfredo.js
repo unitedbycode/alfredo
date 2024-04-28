@@ -8,7 +8,7 @@ const program = new Command()
 
 program.name('string-util').description('CLI to some JavaScript string utilities').version('0.8.0')
 
-program.command('remote-tasks').description('Run some tasks on a remote server - research').action(remoteTasks)
+// program.command('remote-tasks').description('Run some tasks on a remote server - research').action(remoteTasks)
 
 program.command('install-user').description('Installs a user on the target system.').action(installUser)
 
