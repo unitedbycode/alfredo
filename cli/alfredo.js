@@ -21,6 +21,7 @@ core.info(out)
 
 out = await $`
         docker run --rm -v $PWD:/app -w /app composer bash -c "composer install --ignore-platform-reqs"
+        docker run --rm -v $PWD:/app -w /app composer bash -c "php -v"
 `
 core.info(out)
 
