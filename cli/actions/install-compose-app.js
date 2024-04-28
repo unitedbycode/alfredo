@@ -19,6 +19,7 @@ const task = async () => {
         let out
 
         out = await $`
+        docker pull composer
         pwd ; ls -alh
         echo "------------------"
         echo "------------------"
