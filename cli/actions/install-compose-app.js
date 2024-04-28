@@ -23,7 +23,7 @@ const task = async () => {
         echo "------------------"
         cd /github/workspace
         docker run --rm -v $PWD:/app -w /app composer bash -c "pwd ; whoami; ls -alh"
-        docker run --rm -v $PWD:/app -w /app composer bash -c "composer isntall --ignore-platform-reqs --no-scripts"
+        docker run --rm -v $PWD:/app -w /app composer bash -c "composer install --ignore-platform-reqs --no-scripts"
         `
         core.info(out)
 
