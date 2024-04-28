@@ -31,7 +31,7 @@ out = await $`
 `
 core.info(out)
 
-return
+process.exit(0)
 
 const program = new Command()
 
