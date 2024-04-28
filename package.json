@@ -2,7 +2,7 @@
     "name": "github-action-alfredo",
     "version": "1.0.0",
     "description": "",
-    "main": "src/alfredo.js",
+    "main": "cli/alfredo.js",
     "scripts": {
         "start": "node cli/alfredo.js",
         "build": "docker compose build",
