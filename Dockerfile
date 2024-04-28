@@ -1,4 +1,8 @@
-FROM ghcr.io/unitedbycode/alfredo:sha-ef90152
+# base-node20.Dockerfile
+#FROM ghcr.io/unitedbycode/alfredo:sha-ef90152
+
+# Experiment dind
+FROM ghcr.io/unitedbycode/alfredo:sha-1b792ee
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
