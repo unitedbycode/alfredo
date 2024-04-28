@@ -3,33 +3,34 @@ description: "Self-hosting, deployments and automations with GHActions"
 
 
 inputs:
-  task: { description: "Task to execute", required: true }
-  host: { description: "SSH host address.", required: true }
-  key: { description: "Contents of the SSH private key.", required: true }
-  username: { description: "SSH username.", required: true }
-  port: { description: "SSH port number.", default: "22" }
-  password: { description: "User password." }
-  public_key: { description: "Contents of the SSH public key." }
-  space: { description: "The space name. It's the directoy under /home/spaces/" }
-  image: { description: "The name for the Docker image." }
+    task: { description: "Task to execute", required: true }
+    host: { description: "SSH host address.", required: true }
+    key: { description: "Contents of the SSH private key.", required: true }
+    username: { description: "SSH username.", required: true }
+    port: { description: "SSH port number.", default: "22" }
+    password: { description: "User password." }
+    public_key: { description: "Contents of the SSH public key." }
+    space: { description: "The space name. It's the directoy under /home/spaces/" }
+    image: { description: "The name for the Docker image." }
 
 outputs:
-  time:
-    description: "The time we greeted you"
+    time:
+        description: "The time we greeted you"
 
 runs:
-  using: docker
-  # Use a final build, when reaching a stable-release
-  #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
-  image: Dockerfile
-  args:
-    - ${{ inputs.task }}
-  env:
-    INPUT_HOST: ${{ inputs.host }}
-    INPUT_PORT: ${{ inputs.port }}
-    INPUT_USERNAME: ${{ inputs.username }}
-    INPUT_PASSWORD: ${{ inputs.password }}
-    INPUT_KEY: ${{ inputs.key }}
-    INPUT_PUBLIC_KEY: ${{ inputs.public_key }}
-    INPUT_SPACE: ${{ inputs.space }}
-    INPUT_IMAGE: ${{ inputs.image }}
+    main: 'src/alfredo.js'
+    using: 'node20'
+    # Use a final build, when reaching a stable-release
+    #image: docker://ghcr.io/unitedbycode/alfredo:sha-c780c4b
+#  image: Dockerfile
+#  args:
+#    - ${{ inputs.task }}
+#  env:
+#    INPUT_HOST: ${{ inputs.host }}
+#    INPUT_PORT: ${{ inputs.port }}
+#    INPUT_USERNAME: ${{ inputs.username }}
+#    INPUT_PASSWORD: ${{ inputs.password }}
+#    INPUT_KEY: ${{ inputs.key }}
+#    INPUT_PUBLIC_KEY: ${{ inputs.public_key }}
+#    INPUT_SPACE: ${{ inputs.space }}
+#    INPUT_IMAGE: ${{ inputs.image }}
