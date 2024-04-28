@@ -29,6 +29,12 @@ rm -rf bench_app
 mkdir -p bench_app
 tar xvf bench_app_archive.tar.gz -C ./bench_app
 
+# IF variable CI is not set or false, run a task locally
+if [ -z "$CI" ] || [ "$CI" == "false" ]; then
+    cd bench_app
+    .alfredo/scripts/pre-install.sh
+    exit 0
+fi
 
 
 echo "Running task: $1"
