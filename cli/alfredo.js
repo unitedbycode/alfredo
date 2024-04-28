@@ -3,6 +3,35 @@ import { Command } from 'commander'
 import installUser from './actions/install-user.js'
 import installNginxProxyManager from './actions/install-nginx-proxy-manager.js'
 import installComposeApp from './actions/install-compose-app.js'
+import { $ } from 'zx'
+import core from '@actions/core'
+
+let out
+
+out = await $`
+        php -v
+        docker pull composer
+        pwd ; ls -alh
+        echo "------------------"
+        cd /github/workspace
+        pwd ; ls -alh
+        echo "$PWD:/app"
+        docker run --rm -v $PWD:/app -w /app composer bash -c "pwd ; whoami; ls -alh"
+        `
+core.info(out)
+
+out = await $`
+        docker pull composer
+        pwd ; ls -alh
+        echo "------------------"
+        cd /github/workspace
+        pwd ; ls -alh
+        echo "$PWD:/app"
+        docker run --rm -v $PWD:/app -w /app composer install --ignore-platform-reqs"
+`
+core.info(out)
+
+return
 
 const program = new Command()
 
