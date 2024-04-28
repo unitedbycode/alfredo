@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import remoteTasks from './actions/remote-tasks.js'
+// import remoteTasks from './actions/remote-tasks.js'
 import installUser from './actions/install-user.js'
 import installNginxProxyManager from './actions/install-nginx-proxy-manager.js'
 import installComposeApp from './actions/install-compose-app.js'
