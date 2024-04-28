@@ -23,6 +23,7 @@ const task = async () => {
         echo "------------------"
         echo "------------------"
         cd /github/workspace
+        pwd ; ls -alh
         docker run --rm -v $PWD:/app -w /app composer bash -c "pwd ; whoami; ls -alh"
         `
         core.info(out)
