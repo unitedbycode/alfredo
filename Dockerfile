@@ -1,7 +1,7 @@
 # base-node20.Dockerfile
 #FROM ghcr.io/unitedbycode/alfredo:sha-ef90152
 
-# Experiment dind
+# base-ubuntu.Dockerfile - Experiment w/ dind
 FROM ghcr.io/unitedbycode/alfredo:sha-1b792ee
 
 COPY entrypoint.sh /entrypoint.sh

@@ -18,8 +18,12 @@ const task = async () => {
 
         let out
         out = await $`
+        pwd ; ls -alh
+        echo "------------------"
+        echo "------------------"
         cd /github/workspace
         docker run --rm -v $PWD:/app -w /app composer bash -c "pwd ; whoami; ls -alh"
+        docker run --rm -v $PWD:/app -w /app composer bash -c "composer isntall --ignore-platform-reqs --no-scripts"
         `
         core.info(out)
 
@@ -28,7 +32,6 @@ const task = async () => {
         return
         // await exec.exec(`ls -alh /github/workspace`)
 
-        await exec.exec('cp', ['-R', '/github/workspace', '/tmp/app'])
         await exec.exec(`ls -alh /tmp/app/.alfredo/scripts`)
         await exec.exec('install.sh', [], { cwd: '/tmp/app/.alfredo/scripts' })
 
