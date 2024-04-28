@@ -1,2 +1,4 @@
 node_modules
 .env
+bench_app
+bench_app_archive.tar.gz
