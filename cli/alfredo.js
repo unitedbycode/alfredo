@@ -20,7 +20,7 @@ out = await $`
 core.info(out)
 
 out = await $`
-        docker run --rm -v $PWD:/app -w /app composer install --ignore-platform-reqs
+        docker run --rm -v $PWD:/app -w /app bash -c "composer install --ignore-platform-reqs"
 `
 core.info(out)
 
